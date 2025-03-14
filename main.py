@@ -1,3 +1,7 @@
+from io import BytesIO
+import requests
+
+
 from PIL import Image
 from pydantic import BaseModel
 from fastapi import FastAPI, File, UploadFile, HTTPException
@@ -16,6 +20,8 @@ app.add_middleware(
     allow_methods=["*"], 
     allow_headers=["*"],  
 )
+class ImageURL(BaseModel):
+    url: str
 
 class annotateResponse(BaseModel):
     category: str
@@ -24,22 +30,27 @@ class annotateResponse(BaseModel):
     
 
 @app.post("/ai/annotate", response_model=annotateResponse)
-def annotate_image(image_data: UploadFile = File(...)): 
-   
-    if not image_data.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="Uploaded file is not an image")
-    
+def annotate_image(image_data: ImageURL): 
+# def annotate_image(image_data: UploadFile = File(...)): 
+    try:
+        # URL에서 이미지 다운로드
+        response = requests.get(image_data.url)
+        response.raise_for_status()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="이미지 URL에서 이미지를 가져올 수 없습니다") from e
 
     try:
-        image = Image.open(image_data.file)
+        # 다운로드한 바이너리 데이터를 PIL 이미지로 변환
+        image = Image.open(BytesIO(response.content))
         image = image.copy()
     except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid image file") from e
-    finally:
-        image_data.file.close()
+        raise HTTPException(status_code=401, detail="유효하지 않은 이미지 파일입니다") from e
+
+
 
     # Azure tagging
     tags = get_tags_from_azure(image)
+    
     # extract str from tags for caption
     tags_str = ",".join(tags)
     
