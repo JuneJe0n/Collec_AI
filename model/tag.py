@@ -52,7 +52,6 @@ def get_tags_from_azure(image: Image.Image) -> list[tuple[str, float]]:
 
 
 def classify_tags(tags):
-    ########### 아래 키워드들 그냥 임의로 둔거라 수정 필요
     shop_keywords = {
         "accessory", "bag", "clothing", "fashion", "fashion accessory",
         "luggage and bags", "fashion design", "dress", 
