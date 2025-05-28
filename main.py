@@ -30,24 +30,14 @@ class annotateResponse(BaseModel):
     
 
 @app.post("/ai/annotate", response_model=annotateResponse)
-def annotate_image(image_data: ImageURL): 
-# def annotate_image(image_data: UploadFile = File(...)): 
+def annotate_image(image_data: UploadFile = File(...)): 
     try:
-        # URL에서 이미지 다운로드
-        response = requests.get(image_data.url)
-        response.raise_for_status()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="이미지 URL에서 이미지를 가져올 수 없습니다") from e
-
-    try:
-        # 다운로드한 바이너리 데이터를 PIL 이미지로 변환
-        image = Image.open(BytesIO(response.content))
+        image_bytes = image_data.file.read()
+        image = Image.open(BytesIO(image_bytes))
         image = image.copy()
         image = image.convert('RGB')
     except Exception as e:
         raise HTTPException(status_code=401, detail="유효하지 않은 이미지 파일입니다") from e
-
-
 
     # Azure tagging
     tags = get_tags_from_azure(image)
