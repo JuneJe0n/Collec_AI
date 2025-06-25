@@ -78,13 +78,13 @@ def classify_tags(tags):
     tags_set = set(tags)
     
     if tags_set & shop_keywords:
-        category = "쇼핑 & 구매"
+        category = "쇼핑"
     elif tags_set & place_keywords:
         category = "장소"
     elif tags_set & animal_keywords:
         category = "동물"
     elif tags_set & people_keywords:
-        category = "사람 & 인물"
+        category = "인물"
     else:
         category = "기타"
     

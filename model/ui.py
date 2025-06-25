@@ -21,11 +21,11 @@ def categorize_image(ui_classes):
     coupon_keywords = {"barcode"}
 
     if ui_classes & chat_keywords:
-        category = "대화 & 메시지"
+        category = "대화기록"
     elif ui_classes & music_keywords:
         category = "노래"
     elif ui_classes & coupon_keywords:
-        category = "쿠폰 & 혜택"
+        category = "쿠폰"
     else:
         category = "기타"
         

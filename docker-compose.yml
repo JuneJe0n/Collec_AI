@@ -3,13 +3,13 @@ services:
     build: .
     container_name: collec_AI
     ports:
-      - "13131:13131"
+      - "8002:8002"
     env_file:
       - .env
     volumes:
       - .:/app
-      - ./keys/collec-250523.json:/app/keys/collec-250523.json
-      - ./data:/app/data 
+      - ./keys/collec-250620.json:/app/keys/collec-250620.json
+      - ./data:/app/data
 
     environment:
       - PYTHONUNBUFFERED=1

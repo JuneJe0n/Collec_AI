@@ -47,9 +47,9 @@ def classify_text(text: str, threshold = 800):
     """
     booking_keywords = ["예약", "예매", "티켓", "거래", "주문", "내역", "신용", "체크"]
     if len(text) >= threshold :
-        category = "문서 & 정보"
+        category = "문서"
     elif any(keyword in text for keyword in booking_keywords):
-        category = "예약 & 거래"
+        category = "예약"
     else:
         category = "기타"
         
