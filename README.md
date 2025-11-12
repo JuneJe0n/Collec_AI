@@ -13,4 +13,3 @@
 </div><br>
 
 
-<h2> Collec AI Pipeline </h2>
