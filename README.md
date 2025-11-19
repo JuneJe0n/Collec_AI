@@ -12,4 +12,7 @@
   🚀 Now available in [Google playstore!](https://play.google.com/store/apps/details?id=com.collec.collecfe)
 </div><br>
 
+This repository contains the AI section of Collec code implementation. <br>
+[**Jiyoon Jeon**](https://github.com/JuneJe0n) · [**Moon Jaewon**](https://github.com/lumiere-on) contributed to implementing the AI pipeline.
 
+<h2> AI Pipeline </h2>
