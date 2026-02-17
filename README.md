@@ -16,3 +16,4 @@ This repository contains the AI section of Collec code implementation. <br>
 [**Jiyoon Jeon**](https://github.com/JuneJe0n) · [**Moon Jaewon**](https://github.com/lumiere-on) contributed to implementing the AI pipeline.
 
 <h2> AI Pipeline </h2>
+<img src="./assets/pipeline.png"/ width="500">
