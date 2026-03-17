@@ -49,5 +49,8 @@ The APIs we use were carefully selected based on task suitability  cost efficien
 <p><img src="./assets/pipeline.png"/ width="500"></p>
 
 
+**[Stage 1] Azure Image Tagging**  [🔗](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images  )<br>
+
+
 
 
