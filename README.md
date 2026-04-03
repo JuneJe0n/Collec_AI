@@ -48,10 +48,11 @@ The APIs we use were carefully selected based on task suitability  cost efficien
 
 <p><img src="./assets/pipeline.png"/ width="500"></p>
 
-
+<br><br>
 **📍 [Stage 1] Azure Image Tagging**  [🔗](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images  )<br>
 In the first stage, we use Azure Image Tagging to extract semantic tags from the input screenshot.
-The target categories to extract are:
+
+**Target Categories***
 ```
 Shopping
 Place
@@ -89,13 +90,32 @@ We predefine a tag set for each category, and apply rule-based matching:
 - Otherwise → pass the image to the next stage
 
 This stage efficiently filters out a large portion of simple, visually distinguishable categories with minimal cost.
+<br><br>
 
 
+**📍 [Stage 2] Roboflow Object Detection**  [🔗](https://roboflow.com/)<br>
+In the second stage, we detect UI-specific patterns using a custom-trained object detection model on Roboflow.
 
+**Target Categories***
+```
+Coupon (Gifticon)
+Chat (SMS, KakaoTalk, DM, etc.)
+Music
+```
 
+**Method**<br>
+Unlike Stage 1, these categories are not defined by natural image content, but by distinct UI elements:
+- Coupon → barcode
+- Chat → speech bubbles
+- Music → playback controls (play, pause, next, shuffle buttons, etc.)
 
+We trained an object detection model to recognize the UI components using a 500 images per component. The images are half crawled and half manually captured by teammates.
 
+The model predicts bounding boxes and class labels for these UI elements.
+- If specific UI components are detected → classify into corresponding category
+- Otherwise → pass to the next stage
 
+This stage enables robust classification of interface-driven screenshots, which are difficult to handle with generic vision APIs.
 
 
 
