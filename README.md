@@ -118,7 +118,6 @@ The model predicts bounding boxes and class labels for these UI elements.
 This stage enables robust classification of interface-driven screenshots, which are difficult to handle with generic vision APIs.
 
 <br><br>
-
 **📍 [Stage 3] Google Vision OCR**  [🔗](https://docs.cloud.google.com/vision/docs/ocr)<br>
 The final stage handles text-heavy screenshots using OCR.
 
