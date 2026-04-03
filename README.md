@@ -60,7 +60,7 @@ Animal
 Person
 ```
 
-**Method**
+**Method**<br>
 Azure returns a list of tags with confidence scores for a given image:
 ```
 {
