@@ -52,7 +52,7 @@ The APIs we use were carefully selected based on task suitability  cost efficien
 **📍 [Stage 1] Azure Image Tagging**  [🔗](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images  )<br>
 In the first stage, we use Azure Image Tagging to extract semantic tags from the input screenshot.
 
-**Target Categories***
+**Target Categories**
 ```
 Shopping
 Place
@@ -96,7 +96,7 @@ This stage efficiently filters out a large portion of simple, visually distingui
 **📍 [Stage 2] Roboflow Object Detection**  [🔗](https://roboflow.com/)<br>
 In the second stage, we detect UI-specific patterns using a custom-trained object detection model on Roboflow.
 
-**Target Categories***
+**Target Categories**
 ```
 Coupon (Gifticon)
 Chat (SMS, KakaoTalk, DM, etc.)
@@ -117,6 +117,42 @@ The model predicts bounding boxes and class labels for these UI elements.
 
 This stage enables robust classification of interface-driven screenshots, which are difficult to handle with generic vision APIs.
 
+<br><br>
 
+**📍 [Stage 3] Google Vision OCR**  [🔗](https://docs.cloud.google.com/vision/docs/ocr)<br>
+The final stage handles text-heavy screenshots using OCR.
+
+
+**Target Categories**
+```
+Document
+Reservation
+Others
+```
+
+**Method**<br>
+We extract text from the screenshot using Google Vision OCR and apply rule-based logic:
+- If the amount of detected text exceeds a predefined threshold → classify as document
+- If the text contains reservation-related keywords -> classify as r_eservation_
+  ```
+  ["예약", "예매", "티켓", "거래", "주문", "내역", "신용", "체크"]
+  ```
+- If none of the above conditions are met → classify as _others_
+
+
+This stage ensures robust handling of text-dominant screenshots, which are common in real-world usage.
+
+
+<h3>Summary</h3>
+
+Our pipeline combines three complementary approaches:
+- Semantic tagging (Stage 1) → natural image understanding
+- Object detection (Stage 2) → UI pattern recognition
+- OCR + rule-based logic (Stage 3) → text understanding
+
+By cascading these stages, we achieve:
+- High accuracy across diverse screenshot types
+- Cost-efficient API usage
+- Scalable and modular design
 
 
