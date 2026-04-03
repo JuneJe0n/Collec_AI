@@ -49,7 +49,53 @@ The APIs we use were carefully selected based on task suitability  cost efficien
 <p><img src="./assets/pipeline.png"/ width="500"></p>
 
 
-**[Stage 1] Azure Image Tagging**  [🔗](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images  )<br>
+**📍 [Stage 1] Azure Image Tagging**  [🔗](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images  )<br>
+In the first stage, we use Azure Image Tagging to extract semantic tags from the input screenshot.
+The target categories to extract are:
+```
+Shopping
+Place
+Animal
+Person
+```
+
+**Method**
+Azure returns a list of tags with confidence scores for a given image:
+```
+{
+   "tags":[
+      {"name":"grass","confidence":0.9960},
+      {"name":"outdoor","confidence":0.9956},
+      {"name":"building","confidence":0.9893},
+      {"name":"property","confidence":0.9853},
+      {"name":"plant","confidence":0.9791},
+      {"name":"sky","confidence":0.9764},
+      {"name":"home","confidence":0.9732},
+      {"name":"house","confidence":0.9726}
+   ]
+}
+```
+
+Through empirical analysis, we observed that certain categories consistently produce characteristic tags:
+```
+- Animal → animal, dog, cat, fluffy, etc.
+- Place → building, outdoor, sky, etc.
+- Person → person, face, human, etc.
+- Shopping → product, clothing, fashion, etc.
+```
+
+We predefine a tag set for each category, and apply rule-based matching:
+- If the predicted tags intersect with a category-specific tag set → classify into that category
+- Otherwise → pass the image to the next stage
+
+This stage efficiently filters out a large portion of simple, visually distinguishable categories with minimal cost.
+
+
+
+
+
+
+
 
 
 
