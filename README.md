@@ -52,7 +52,7 @@ The APIs we use were carefully selected based on task suitability  cost efficien
 **📍 [Stage 1] Azure Image Tagging**  [🔗](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images  )<br>
 In the first stage, we use Azure Image Tagging to extract semantic tags from the input screenshot.
 
-**Target Categories**
+**► Target Categories**
 ```
 Shopping
 Place
@@ -60,7 +60,7 @@ Animal
 Person
 ```
 
-**Method**<br>
+**► Method**<br>
 Azure returns a list of tags with confidence scores for a given image:
 ```
 {
@@ -96,14 +96,14 @@ This stage efficiently filters out a large portion of simple, visually distingui
 **📍 [Stage 2] Roboflow Object Detection**  [🔗](https://roboflow.com/)<br>
 In the second stage, we detect UI-specific patterns using a custom-trained object detection model on Roboflow.
 
-**Target Categories**
+**► Target Categories**
 ```
 Coupon (Gifticon)
 Chat (SMS, KakaoTalk, DM, etc.)
 Music
 ```
 
-**Method**<br>
+**► Method**<br>
 Unlike Stage 1, these categories are not defined by natural image content, but by distinct UI elements:
 - Coupon → barcode
 - Chat → speech bubbles
@@ -122,14 +122,14 @@ This stage enables robust classification of interface-driven screenshots, which 
 The final stage handles text-heavy screenshots using OCR.
 
 
-**Target Categories**
+**► Target Categories**
 ```
 Document
 Reservation
 Others
 ```
 
-**Method**<br>
+**► Method**<br>
 We extract text from the screenshot using Google Vision OCR and apply rule-based logic:
 - If the amount of detected text exceeds a predefined threshold → classify as document
 - If the text contains reservation-related keywords -> classify as r_eservation_
